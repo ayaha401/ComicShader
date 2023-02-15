@@ -26,11 +26,9 @@ v2f vert (appdata v)
 {
     v2f o;
 
-    // GPUインスタンシングできてるかまだ分からない
     UNITY_SETUP_INSTANCE_ID(v);
     UNITY_TRANSFER_INSTANCE_ID(v, o);
     
-    // セマンティクスに存在してないけどV2F_SHADOW_CASTERでたぶん追加される
     o.pos = UnityObjectToClipPos(v.vertex);
 
     o.uv = v.uv;

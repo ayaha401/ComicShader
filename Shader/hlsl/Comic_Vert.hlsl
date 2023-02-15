@@ -7,15 +7,11 @@ v2f vert (appdata v)
     // =====初期化=====
     UNITY_INITIALIZE_OUTPUT(v2f, o);
 
-    // posに意味がない気がする
     o.pos = UnityObjectToClipPos(v.vertex);
     o.posWS = mul(unity_ObjectToWorld, v.vertex);
     o.uv.xy = TRANSFORM_TEX(v.uv, _MainTex);
     
 
-    // 現状とりあえずこれでいく
-    // o.uv.zw = ComputeScreenPos(float4(o.posWS, 1.0));
-    // の使用も考えている
     if(_VRChatMode)
     {
         o.uv.zw = o.posWS;
@@ -81,8 +77,6 @@ v2f vert (appdata v)
 
     // ===EmissionUVBase===
     o.emiuv.xy = (v.uv.xy * _MainTex_ST.xy) + _EmissionTex_ST.zw;
-    // わからないのでいったん0.0
-    // 現状使ってない
     o.emiuv.zw = float2(0.0, 0.0);
 
     // ===EmissionUVScroll===

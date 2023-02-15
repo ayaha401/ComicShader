@@ -117,7 +117,6 @@ Shader "Comic Shader/Opaque"
             "Queue" = "Geometry"
         }
 
-        // 0 か 100 かわからん
         LOD 0
 
         Pass
@@ -191,7 +190,6 @@ Shader "Comic Shader/Opaque"
         }
 
         // ShadowCaster
-        // 現状NormalBiasに対応してないと思う
         Pass
         {
             Name "ShadowCaster"

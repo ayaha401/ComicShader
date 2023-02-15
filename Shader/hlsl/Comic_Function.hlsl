@@ -23,11 +23,4 @@ float myPow(float bottom, float n)
 {
     return bottom - (bottom - bottom * bottom) * -n;
 }
-
-// 波を作る
-// float MakeWave(uint waveNumber)
-// {
-        // float wave = 0.0;
-//     if(waveNumber == 0)      wave = 0.0;
-// }
 #endif

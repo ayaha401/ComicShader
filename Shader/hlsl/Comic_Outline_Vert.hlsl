@@ -15,7 +15,6 @@ v2f vert (appdata v)
         float outlineMask = COMIC_SAMPLE_LEVEL(_OutlineMaskTex, o.uv, 0).r;
         float outlineWidth = _OutlineWidth * 0.05;
 
-        // まだセマンティクスにしてない。ここでしか利用価値がないから
         float3 normalWS = normalize(UnityObjectToWorldNormal(v.normal));
 
         outlineWidth *= outlineMask;

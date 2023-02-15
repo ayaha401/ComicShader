@@ -27,7 +27,6 @@ struct appdata
     float4 vertex : POSITION;
     float2 uv : TEXCOORD;
     float3 normal : NORMAL;
-    // float3 color : COLOR;
 };
 
 struct v2f
@@ -40,9 +39,6 @@ struct v2f
 
 // 頂点シェーダー
 #include "../hlsl/Comic_Outline_Vert.hlsl"
-
-// ジオメトリーシェーダー
-// #include "../hlsl/Comic_Outline_Geom.hlsl"
 
 // フラグメントシェーダー
 #include "../hlsl/Comic_Outline_Frag.hlsl"

@@ -8,7 +8,6 @@ float4 frag(v2f i) : SV_Target
     float4 col = 0.0;
 
     // =====ViewDir=====
-    // まだVR対応行っていない
     float3 ViewDir = normalize(_WorldSpaceCameraPos - i.posWS);
 
     // =====LightDir=====
@@ -24,7 +23,6 @@ float4 frag(v2f i) : SV_Target
     }
 
     // =====HalfDir=====
-    // まだVR対応行っていない
     float3 HalfDir = normalize(_WorldSpaceLightPos0.xyz + ViewDir);
 
     // =====Albedo=====
@@ -288,8 +286,6 @@ float4 frag(v2f i) : SV_Target
         float emissionMask = COMIC_SAMPLE_2D_ST(_EmissionMask, sampler_EmissionTex, i.uv.xy);
 
         // ===EmissionColor===
-        // saturateで-0.05して無理やり0にしてる
-        // emissionTexColorとemissionMaskでの乗算がうまく行かない
         emissionTexColor = saturate(emissionTexColor * emissionMask - 0.05);
 
         emissionTexColor *= _EmissionHDRColor.rgb * _EmissionHDRColor.a;
@@ -300,14 +296,9 @@ float4 frag(v2f i) : SV_Target
         if(_Flicker == 1)   flicker = frac(_Time.y * _FlickerSpeed);
         if(_Flicker == 2)   flicker = abs(sin(_Time.y * _FlickerSpeed));
 
-        // この計算方法だと最大で2倍がかかってしまう。あまりいい方法ではないと思ってる
         emissionTexColor = emissionTexColor - emissionTexColor * flicker;
         
         #ifdef FB 
-            // パワー計算がこれでいいのかまだはっきりしてない
-            // 現状のやり方なら
-            // 上記のflicker計算が終わってから最終的な強度をこれで変えれる
-            // 最大2倍かかったものを0.0~1.0倍する
             emission = emissionTexColor * _EmissionPower;
         #endif
 
@@ -323,7 +314,6 @@ float4 frag(v2f i) : SV_Target
     if(_UseDecalEmission && _UseDecal)
     {
         // ===DecalEmissionColor===
-        // 乗算でemission載せてるからもとの色が黒だと乗らない
         float3 decalEmissionColor = decalColor.rgb * decalColor.a * decalEdgeFlag;
         decalEmissionColor *= _DecalEmissionHDRColor;
 
@@ -351,7 +341,6 @@ float4 frag(v2f i) : SV_Target
         if(_UseMetallic)
         {
             float metallicMask = COMIC_SAMPLE_2D_ST(_MetallicMask, sampler_MainTex, i.uv.xy);
-            // 0.000001 == 補正値。1.0を代入するとエラーになる
             col.rgb = lerp(col.rgb, reflection * col.rgb, (_Metallic * metallicMask) + 0.000001);
         }
     #endif
@@ -382,8 +371,6 @@ float4 frag(v2f i) : SV_Target
     #endif
 
     // リムライト合成
-    // _ShadowPriorityの計算より前だと影が最優先になる、後だと影の処理の後にリムライト計算になる。
-    // ここをどうするのか考え中
     col.rgb += rimLight;
 
     lastColor.rgb = col.rgb;
@@ -391,9 +378,6 @@ float4 frag(v2f i) : SV_Target
         lastColor.a = col.a;
     #endif
 
-    // =====デバッグ用=====
-    // lastColor.rgb = ambient.rgb;
-    // ===================
     return lastColor;
 }
 #endif

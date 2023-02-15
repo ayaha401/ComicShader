@@ -53,7 +53,7 @@ Shader "Comic Shader/Transparent"
 
         // Normal
         [Normal]_BumpMap ("Normal Map", 2D) = "bump"{}
-        _BumpScale ("Normal Scale", Range(0, 1)) = 1.0      // マイナス領域使えたら面白いかもしれない
+        _BumpScale ("Normal Scale", Range(0, 1)) = 1.0
 
         // Outline
         [Toggle]_UseOutline ("Use Outline", int) = 0
@@ -116,7 +116,6 @@ Shader "Comic Shader/Transparent"
             "Queue" = "Transparent"
         }
 
-        // 0 か 100 かわからん
         LOD 0
 
         Pass
@@ -156,7 +155,6 @@ Shader "Comic Shader/Transparent"
 
             Cull Front
 
-            // アウトラインのブレンディングは考え中
             Blend SrcAlpha OneMinusSrcAlpha
 
             HLSLPROGRAM
@@ -200,7 +198,6 @@ Shader "Comic Shader/Transparent"
         }
 
         // ShadowCaster
-        // 現状NormalBiasに対応してないと思う
         Pass
         {
             Name "ShadowCaster"
@@ -217,7 +214,6 @@ Shader "Comic Shader/Transparent"
             #pragma fragment frag
             #pragma multi_compile_shadowcaster
 
-            // GPUインスタンシング
             #pragma multi_compile_instancing
             #pragma target 4.5
 

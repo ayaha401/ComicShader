@@ -53,7 +53,7 @@ Shader "Comic Shader/Cutout"
 
         // Normal
         [Normal]_BumpMap ("Normal Map", 2D) = "bump"{}
-        _BumpScale ("Normal Scale", Range(0, 1)) = 1.0      // マイナス領域使えたら面白いかもしれない
+        _BumpScale ("Normal Scale", Range(0, 1)) = 1.0
 
         // Outline
         [Toggle]_UseOutline ("Use Outline", int) = 0
@@ -117,7 +117,6 @@ Shader "Comic Shader/Cutout"
             "Queue" = "AlphaTest"
         }
 
-        // 0 か 100 かわからん
         LOD 0
 
         Pass
@@ -144,30 +143,6 @@ Shader "Comic Shader/Cutout"
 
             ENDHLSL
         }
-
-        // 透明のアウトライン作れなかった。今後の課題
-        // Outline
-        // Pass
-        // {
-        //     Name "Outline"
-        //     Tags
-        //     {
-        //         "LightMode" = "ForwardBase"
-        //     }
-
-        //     Cull Front
-
-        //     HLSLPROGRAM
-        //     #pragma vertex vert
-        //     #pragma fragment frag
-        //     #pragma target 4.5
-
-        //     #define CUTOUT
-
-        //     #include "../Shader/hlsl/Comic_Outline_Core.hlsl"
-
-        //     ENDHLSL
-        // }
 
         // ForwardAdd
         Pass
@@ -198,7 +173,6 @@ Shader "Comic Shader/Cutout"
         }
 
         // ShadowCaster
-        // 現状NormalBiasに対応してないと思う
         Pass
         {
             Name "ShadowCaster"
@@ -215,7 +189,6 @@ Shader "Comic Shader/Cutout"
             #pragma fragment frag
             #pragma multi_compile_shadowcaster
 
-            // GPUインスタンシング
             #pragma multi_compile_instancing
             #pragma target 4.5
 

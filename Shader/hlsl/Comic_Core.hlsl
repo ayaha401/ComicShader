@@ -7,9 +7,6 @@
 #include "../hlsl/Comic_Function.hlsl"
 #include "../hlsl/Comic_Macro.hlsl"
 
-// ST必要かどうかをちゃんと整理するべき
-// samplerが正しいかチェックすべき 
-
 // Setting
 uniform bool _VRChatMode;
 uniform bool _ShadowPriority;
